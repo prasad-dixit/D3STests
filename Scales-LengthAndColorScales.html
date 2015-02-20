@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>D3 Tutorial</title>
+    <script type="text/javascript" src="scripts/d3.js"></script>
+</head>
+<body>
+    <script>
+
+        var dataArray = [10, 20, 30, 40, 50, 60, 65, 70];
+
+        var canvasWidth = 500;
+        var canvasHeight = 500;
+
+        // create basic scale
+        // take input range (dataArray) and transform it into something that
+        // will fit into our canvas/container
+        // range (of dataArray) is called domain
+        var widthScale = d3.scale.linear()
+                .domain([0, 100]) // First value is min, second value is max
+                .range([0, canvasWidth]); // Max value range
+
+        // create a color scale
+        var colorScale = d3.scale.linear()
+                .domain([0, 100])
+                .range(["red", "blue"]);
+
+        // create canvas
+        var canvas = d3.select( "body" )
+                .append("svg")
+                .attr("width", canvasWidth)
+                .attr("height", canvasHeight);
+
+
+        // bars are all rectangle
+        // return empty selection of rectangles
+        // we will connect empty collection to data (.data method)
+        // placeholder for each data elements for which there is no page element (.enter method)
+        // enter will return 3 elements
+        var bars = canvas.selectAll("rect")
+                .data(dataArray)
+                .enter()
+                    .append("rect") // append rectangle for each data element
+                    .attr("width", function(d) { return widthScale(d); }) // return scaled value using widthScale
+                    .attr("height", 30)
+                    .attr("fill", function(d) { return colorScale(d)})
+                    .attr("y", function(d, i) { return (50 * i) + 30});
+
+    </script>
+</body>
+</html>

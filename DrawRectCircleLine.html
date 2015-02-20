@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>D3 Tutorial</title>
+    <script type="text/javascript" src="scripts/d3.js"></script>
+</head>
+<body>
+    <script>
+
+        var dataArray = [20, 40, 50];
+
+        // create canvas
+        var canvas = d3.select( "body" )
+                .append("svg")
+                .attr("width", 500)
+                .attr("height",500);
+
+
+        // bars are all rectangle
+        // return empty selection of rectangles
+        // we will connect empty collection to data (.data method)
+        // placeholder for each data elements for which there is no page element (.enter method)
+        // enter will return 3 elements
+        var bars = canvas.selectAll("rect")
+                .data(dataArray)
+                .enter()
+                    .append("rect") // append rectangle for each data element
+                    .attr("width", function(d) { return d; }) // for each data element within our enter() selection, width will be function of our data
+                    .attr("height", 50);
+
+    </script>
+</body>
+</html>

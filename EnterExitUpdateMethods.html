@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>D3 Tutorial (d3Vienno on YouTube)</title>
+    <script type="text/javascript" src="scripts/d3.js"></script>
+</head>
+<body>
+    <script>
+
+        // Enter, Update and Exit methods
+        // DOM Elements < data elements (is called Enter)
+        // DOM Elements > data elements (is called Exit)
+        // DOM Elements = data elements (is called Update)
+
+        var dataArray = [10, 20];
+
+        var canvasWidth = 500;
+        var canvasHeight = 500;
+
+        // create canvas
+        var canvas = d3.select( "body" )
+                .append("svg")
+                .attr("width", canvasWidth)
+                .attr("height", canvasHeight);
+
+
+        // enter sample - more data elements (dataArray) than
+        // dom elements (circle we created above)
+        /*
+        var enterCircle = canvas.append("circle")
+                .attr("cx", 50)
+                .attr("cy", 100)
+                .attr("r", 25)
+                .attr("fill", "red");
+
+
+        var circles = canvas.selectAll("circle")
+                .data(dataArray)
+                .enter()  /// enter method contains all data elements that are not bound
+                    .append("circle")
+                    .attr("cx", 50)
+                    .attr("cy", 50)
+                    .attr("r", 25);
+        */
+
+
+        // exit sample - more DOM elements than
+        // data elements (exitDataArray)
+
+        var exitDataArray = [10];
+
+        var exitCircle1 = canvas.append("circle")
+         .attr("cx", 50)
+         .attr("cy", 100)
+         .attr("r", 25)
+         .attr("fill", "red");
+
+         var exitCircle2 = canvas.append("circle")
+         .attr("cx", 50)
+         .attr("cy", 150)
+         .attr("r", 25)
+         .attr("fill", "blue");
+
+        // 2 dom elements exitCircle1 and exitCircle2
+         var circles = canvas.selectAll("circle")
+            .data(exitDataArray)
+            .attr("fill", "green")
+            .exit()  /// exit method
+                .attr("fill", "yellow");
+
+
+    </script>
+</body>
+</html>

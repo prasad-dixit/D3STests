@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>D3 Tutorial (d3Vienno on YouTube)</title>
+    <script type="text/javascript" src="scripts/d3.js"></script>
+</head>
+<body>
+    <script>
+
+        d3.json("./data/employees.json", function(data) {
+            var canvasWidth = 500;
+            var canvasHeight = 500;
+
+            // create canvas
+            var canvas = d3.select( "body" )
+                    .append("svg")
+                    .attr("width", canvasWidth)
+                    .attr("height", canvasHeight);
+
+            canvas.selectAll("rect")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                    .attr("width", function(d) { return d.age * 10})
+                    .attr("height", 30)
+                    .attr("y", function(d, i) {return i*50})
+                    .attr("fill", "red");
+
+            canvas.selectAll("text")
+                    .data(data)
+                    .enter()
+                    .append("text")
+                    .attr("y", function(d, i) {return (i*50) + 15})
+                    .attr("fill", "white")
+                    .text(function(d) { return d.name});
+
+        });
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>D3 Tutorial (d3Vienno on YouTube)</title>
+    <script type="text/javascript" src="scripts/d3.js"></script>
+    <style>
+    body {
+            font: 12px sans-serif;
+        }
+
+        .node text {
+            fill: #fff;
+        }
+
+    </style>
+</head>
+<body>
+<script>
+
+    var canvasWidth = 800;
+    var canvasHeight = 600;
+
+    // create canvas
+    var canvas = d3.select("body")
+            .append("svg")
+            .attr("width", canvasWidth)
+            .attr("height", canvasHeight)
+            .append("g")
+            .attr("transform", "translate(50,50)");
+
+    var pack = d3.layout.pack()
+            .size([canvasWidth, canvasHeight - 50])
+            .padding(10);
+
+    d3.json("data/tree_data.json", function(data) {
+        var nodes = pack.nodes(data);
+
+        var node = canvas.selectAll(".node")
+                .data(nodes)
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")";});
+
+        node.append("circle")
+                .attr("r", function(d) { return d.r})
+                .attr("fill", "green")
+                .attr("opacity", 0.25)
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 1);
+
+        node.append("text")
+                //.attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")";})
+                .text(function(d) { return d.children ? "" : d.name;})
+
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "flare",
+  "value": 100,
+  "children": [
+    {
+      "name": "analytics",
+      "value": 80,
+      "children": [
+        {
+          "name": "cluster",
+          "value": 50,
+          "children": []
+        },
+        {
+          "name": "graph",
+          "value": 40,
+          "children": []
+        },
+        {
+          "name": "optimization",
+          "value": 30,
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "hadoop",
+      "value": 70
+    },
+    {
+      "name": "big-data",
+      "value": 60
+    }
+
+  ]
+}

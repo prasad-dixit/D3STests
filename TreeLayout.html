@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>D3 Tutorial (d3Vienno on YouTube)</title>
+    <script type="text/javascript" src="scripts/d3.js"></script>
+</head>
+<body>
+<script>
+
+    var canvasWidth = 500;
+    var canvasHeight = 500;
+
+    // create canvas
+    var canvas = d3.select("body")
+            .append("svg")
+            .attr("width", canvasWidth)
+            .attr("height", canvasHeight)
+            .append("g")
+            .attr("transform", "translate(20,20)");
+
+    // tree or cluster layout. Change tree() to cluster()
+    var tree = d3.layout.tree()
+            .size([400, 400]);
+
+    d3.json("data/tree_data.json", function(data) {
+        var nodes = tree.nodes(data);
+        var links = tree.links(nodes);
+
+        var node = canvas.selectAll(".node")
+                .data(nodes)
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")";});
+
+        node.append("circle")
+                .attr("r", 5)
+                .attr("fill", "steelblue");
+
+        node.append("text")
+                .attr("dy", ".31em")
+                .attr("text-anchor", "start")
+                .text(function(d) { return d.name; });
+
+        var diagonal = d3.svg.diagonal();
+
+        canvas.selectAll(".link")
+                .data(links)
+                .enter()
+                .append("path")
+                .attr("fill", "none")
+                .attr("class", "link")
+                .attr("stroke", "red")
+                .attr("d", diagonal);
+
+    });
+</script>
+</body>
+</html>
